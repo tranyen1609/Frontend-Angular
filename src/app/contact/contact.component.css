@@ -1,0 +1,11 @@
+.info-contact p{
+    padding-top: 10px;
+    text-align: center;
+    font-size: 20px;
+    font-weight: bold;
+}
+.info-contact{
+    background-color: white;
+    border-radius: 5px;
+    height: 100px;
+}

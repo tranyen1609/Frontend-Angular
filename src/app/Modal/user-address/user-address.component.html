@@ -1,0 +1,159 @@
+<ng-template #content let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">CREATE ACCOUNT</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form novalidate [formGroup]="formUsers" (ngSubmit)="createUser()">
+      <table class="table table-borderless">
+        <tbody>
+          <tr>
+            <th>User name*</th>
+            <td>
+              <input class="form-control" type="text" formControlName="username" placeholder="Username is at least 2 characters">
+              <app-validate [control]="formUsers.controls.username" [namecontrol]="Username"></app-validate>
+            </td>
+          </tr>
+          <tr>
+            <th>Password*</th>
+            <td>
+              <input class="form-control" type="password" formControlName="password" placeholder="Password is at least 5 characters">
+            </td>
+          </tr>
+          <tr>
+            <th>Phone Number</th>
+            <td>
+              <input class="form-control" type="text" formControlName="phone">
+            </td>
+          </tr>
+          <tr>
+            <th>Email</th>
+            <td>
+              <input class="form-control" type="text" formControlName="email" placeholder="Ex: a@b.c">
+              <!-- <app-validate [control]="formUsers.controls.email" [name-control]="email"></app-validate> -->
+            </td>
+          </tr>
+          <!-- <tr>
+            <th>Day of Birth</th>
+            <td>
+              <input type="date" class="form-control" [(ngModel)]="newBirthday" name="day">
+            </td>
+          </tr> -->
+        </tbody>
+      </table>
+      <fieldset formGroupName="addressHome">
+        <div id="accordion">
+          <div class="card">
+            <a class="card-header card-link" data-toggle="collapse" href="#collapseOne">
+              Home address
+              <img src="../../assets/images/expandmore.png">
+            </a>
+            <div id="collapseOne" class="collapse" data-parent="#accordion">
+              <div class="card-body">
+                <table class="table table-borderless">
+                  <tbody>
+                    <tr class="form-group">
+                      <th for="my-input">Country</th>
+                      <td>
+                        <select class="form-control" formControlName="idCountry_Home" (change)="getCitiesFromId_Home($event.target.value)">
+                          <option [value]="0">Select country</option>
+                          <option *ngFor="let ctr of countryData_Home.countries" [value]="ctr.id">{{ ctr.name }}</option>
+                        </select>
+                      </td>
+                    </tr>
+                    <tr class="form-group">
+                      <th for="my-input">City</th>
+                      <td>
+                        <select id="my-input" class="form-control" formControlName="idCity_Home" (change)="getDistrictsFromId_Home($event.target.value)">
+                          <option [value]="0">Select city</option>
+                          <option *ngFor="let ct of cityData_Home.cities" [value]="ct.id">{{ ct.name }}</option>
+                        </select>
+                      </td>
+                    </tr>
+                    <tr class="form-group">
+                      <th for="my-input">District</th>
+                      <td>
+                        <select id="my-input" class="form-control" formControlName="idDistrict_Home">
+                          <option [value]="0">Select district</option>
+                          <option *ngFor="let d of districtData_Home.districts" [value]="d.id">{{ d.name }}</option>
+                        </select>
+                      </td>
+                    </tr>
+                    <tr>
+                      <th>Street</th>
+                      <td>
+                        <input class="form-control" type="text" formControlName="newStreet_Home">
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </fieldset>
+
+      <fieldset formGroupName="addressWork">
+        <div id="accordion">
+          <div class="card">
+            <a class="card-header card-link" data-toggle="collapse" href="#collapseWork">
+              Work address
+              <img src="../../assets/images/expandmore.png">
+            </a>
+            <div id="collapseWork" class="collapse" data-parent="#accordion">
+              <div class="card-body">
+                <table class="table table-borderless">
+                  <tbody>
+                    <tr class="form-group">
+                      <th for="my-input">Country</th>
+                      <td>
+                        <select class="form-control" formControlName="idCountry_Work" (change)="getCitiesFromId_Work($event.target.value)">
+                          <option [value]="0">Select country</option>
+                          <option *ngFor="let ctr of countryData_Work.countries" [value]="ctr.id">{{ ctr.name }}</option>
+                        </select>
+                      </td>
+                    </tr>
+                    <tr class="form-group">
+                      <th for="my-input">City</th>
+                      <td>
+                        <select id="my-input" class="form-control" formControlName="idCity_Work" (change)="getDistrictsFromId_Work($event.target.value)">
+                          <option [value]="0">Select city</option>
+                          <option *ngFor="let ct of cityData_Work.cities" [value]="ct.id">{{ ct.name }}</option>
+                        </select>
+                      </td>
+                    </tr>
+                    <tr class="form-group">
+                      <th for="my-input">District</th>
+                      <td>
+                        <select id="my-input" class="form-control" formControlName="idDistrict_Work">
+                          <option [value]="0">Select district</option>
+                          <option *ngFor="let d of districtData_Work.districts" [value]="d.id">{{ d.name }}</option>
+                        </select>
+                      </td>
+                    </tr>
+                    <tr>
+                      <th>Street</th>
+                      <td>
+                        <input class="form-control" type="text" formControlName="newStreet_Work">
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </fieldset>
+
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-primary" data-dismiss="modal" [disabled]="formUsers.invalid">Save</button>
+      </div>
+    </form>
+  </div>
+</ng-template>
+
+<div class="btn-action">
+  <button class="btn btn-primary" (click)="open(content)">ADD USER</button>
+</div>

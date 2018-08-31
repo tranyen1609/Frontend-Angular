@@ -1,0 +1,38 @@
+<ng-template #content let-c="close" let-d="dismiss">
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Edit User Infomation</h4>
+      <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+  
+      <form [formGroup]="formUser" (ngSubmit)="onSubmit()">
+  
+        <div class="form-group row">
+          <div class="col-sm-3">Username:</div>
+          <div class="col-sm-9">
+            <input class="form-control" type="text" formControlName="username">
+            <app-validate [control]="formUser.controls.username" [namecontrol]="Username"></app-validate>
+          </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-sm-3">Password:</div>
+            <div class="col-sm-9">
+              <input class="form-control" type="text" formControlName="password">
+              <app-validate [control]="formUser.controls.password" [namecontrol]="password"></app-validate>
+            </div>
+          </div>
+  
+        <div class="modal-footer">
+          <!-- <button type="submit" class="btn btn-outline-primary" [disabled]="formUser.invalid">Save</button> -->
+          <button type="submit" class="btn btn-outline-primary" [disabled]="formUser.invalid">Save</button>
+        </div>
+      </form>
+    </div>
+  
+  
+  </ng-template>
+  <a (click)="open(content)">
+    <i class="fa fa-pencil-square-o" style="color: blue"></i>Edit </a>

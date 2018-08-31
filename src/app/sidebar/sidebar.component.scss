@@ -1,0 +1,19 @@
+.active{
+    color: black;
+    background-color: #F6F7F9;
+    width: 300px;
+    border-radius: 4px;
+    font-weight: bold;
+}
+.nav-link{
+    margin-bottom: 2px;
+    color: black;
+    :hover{
+        background-color: #F6F7F9;
+        width: 300px;
+        border-radius: 4px;
+    }
+}
+.nav-item{
+    display: block;
+}

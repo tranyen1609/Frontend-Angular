@@ -1,0 +1,51 @@
+.user-detail{
+    background-color: white;
+    border-radius: 5px;
+    padding: 20px;
+    p{
+        text-align: center;
+        font-size: 20px;
+        font-weight: bold;
+    }
+}
+label{
+    font-weight: bold;
+}
+.btn-edit{
+    cursor: pointer;
+    color: blue;
+    display: flex;
+    align-items: center;
+    :hover{
+        text-decoration: underline;
+    }
+}
+.action{
+    a{
+        border-left: 1px solid gray;
+        padding-left: 5px;
+        cursor: pointer;
+        color: red;
+        :hover{
+            text-decoration: underline;
+        }
+    }
+    ngbd-modal-basic{
+        cursor: pointer;
+        color: blue;
+        :hover{
+            text-decoration: underline;
+        }
+    }
+}
+.add-address{
+    cursor: pointer;
+    color: blue;
+    :hover{
+        text-decoration: underline;
+    }
+}
+.form-group:hover{
+    background-color: #F6F7F9;
+    border-radius: 5px;
+}
