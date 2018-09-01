@@ -1,6 +1,6 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { UserService } from '../../../services/users/user.service';
-import { UserData, User } from '../../../models/user';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { UserService } from '../../services/users/user.service';
+import { UserData, User } from '../../models/user';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -19,6 +19,8 @@ export class UserDetailModal implements OnInit {
   formUser: FormGroup;
   userName: string;
   passWord: string;
+
+  @Output() editUser = new EventEmitter<object>();
 
   constructor( private router: Router, private modalService: NgbModal, private userService: UserService, private fb: FormBuilder ) { }
 
@@ -48,14 +50,24 @@ export class UserDetailModal implements OnInit {
   }
 
   onSubmit() {
-    return this.userService.updateUser(this.idUser, this.formUser.get('username').value, this.formUser.get('password').value).subscribe(data => 
-      window.location.reload())
+    this.user.name = this.formUser.get('username').value;
+    this.user.password = this.formUser.get('password').value;
+    console.log(this.user);
+
+    return this.userService.updateUser(this.user).subscribe(
+      () => {
+        this.editUser.emit(this.user);
+      });
   }
 
   open(content) {
 
+    this.createForm();
+
     this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title', backdrop: "static" }).result.then((result) => {
-      this.createForm();
+
+      this.onSubmit();
+
       this.closeResult = `Closed with: ${result}`;
     }, (reason) => {
       this.createForm();

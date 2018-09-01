@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { UserService } from '../../services/users/user.service';
-import { UserData, User } from '../../models/user';
+import { UserService } from '../services/users/user.service';
+import { UserData, User } from '../models/user';
 
 
 @Component({
@@ -64,5 +64,10 @@ export class UsersComponent implements OnInit {
           this.totalItems = 0;
       }
     );
+  }
+
+  getNewUser(user: any) {
+    this.p = this.totalPages;
+    this.getUsers();
   }
 }

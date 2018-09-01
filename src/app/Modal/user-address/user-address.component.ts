@@ -1,12 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
-import { AddressService } from '../../../services/address/address.service';
-import { CountryData } from '../../../models/country';
-import { User } from '../../../models/user';
-import { Address } from '../../../models/address';
-import { CityData } from '../../../models/city';
-import { DistrictData } from '../../../models/district';
+import { AddressService } from '../../services/address/address.service';
+import { CountryData } from '../../models/country';
+import { User } from '../../models/user';
+import { Address } from '../../models/address';
+import { CityData } from '../../models/city';
+import { DistrictData } from '../../models/district';
 
 @Component({
   selector: 'app-user-address',
@@ -25,6 +25,8 @@ export class UserAddressComponent implements OnInit {
 
   formUsers: FormGroup;
   closeResult: string;
+
+  @Output() newUser = new EventEmitter<object>();
   constructor(private modalService: NgbModal, private addressService: AddressService, private fb: FormBuilder) { }
 
   ngOnInit() {
@@ -63,13 +65,24 @@ export class UserAddressComponent implements OnInit {
   }
 
   createUser() {
-    let user: User = new User( this.formUsers.get('username').value, this.formUsers.get('password').value );
-    let address: Address = new Address(1,this.formUsers.get('addressHome.idCountry_Home').value,this.formUsers.get('addressHome.idCity_Home').value,this.formUsers.get('addressHome.idDistrict_Home').value,this.formUsers.get('addressHome.newStreet_Home').value);
-    let address2: Address = new Address(2,this.formUsers.get('addressWork.idCountry_Work').value,this.formUsers.get('addressWork.idCity_Work').value,this.formUsers.get('addressWork.idDistrict_Work').value,this.formUsers.get('addressWork.newStreet_Work').value);
+    let user: User = new User( undefined, this.formUsers.get('username').value, this.formUsers.get('password').value );
+
+    let address: Address = undefined;
+    let address2: Address = undefined;
+
+    if(this.formUsers.get('addressHome.idCountry_Home').value != 0 || this.formUsers.get('addressHome.idCity_Home').value != 0 || this.formUsers.get('addressHome.idDistrict_Home').value != 0 || this.formUsers.get('addressHome.newStreet_Home').value != "")
+      address = new Address(1,this.formUsers.get('addressHome.idCountry_Home').value,this.formUsers.get('addressHome.idCity_Home').value,this.formUsers.get('addressHome.idDistrict_Home').value,this.formUsers.get('addressHome.newStreet_Home').value);
+    
+    if(this.formUsers.get('addressWork.idCountry_Work').value != 0 || this.formUsers.get('addressWork.idCity_Work').value != 0 || this.formUsers.get('addressWork.idDistrict_Work').value != 0 || this.formUsers.get('addressWork.newStreet_Work').value != "")
+      address2 = new Address(2,this.formUsers.get('addressWork.idCountry_Work').value,this.formUsers.get('addressWork.idCity_Work').value,this.formUsers.get('addressWork.idDistrict_Work').value,this.formUsers.get('addressWork.newStreet_Work').value);
+      
 
     let addresses = [address,address2];
-    return this.addressService.createUserAddress( user, addresses ).subscribe(data =>{
-      window.location.reload();
+    
+    return this.addressService.createUserAddress( user, addresses ).subscribe(
+      (data: any) => {
+        let user = data.user;
+        this.newUser.emit(user);
     });
   }
 
@@ -124,8 +137,12 @@ export class UserAddressComponent implements OnInit {
 
   open(content) {
 
+    this.createForm();
+
     this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title', backdrop: "static", size: "lg" }).result.then((result) => {
-      this.createForm()
+
+      this.createUser();
+
       this.closeResult = `Closed with: ${result}`;
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;

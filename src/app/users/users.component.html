@@ -35,6 +35,6 @@
         <pagination-controls (pageChange)="pageChanged($event)"></pagination-controls>
     </div>
     
-    <app-user-address></app-user-address>
+    <app-user-address (newUser)="getNewUser($event)"></app-user-address>
 </div>
 

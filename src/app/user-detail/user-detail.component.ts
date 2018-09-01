@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { UserAddressesDetail, AddressDetail } from '../../models/address';
-import { User } from '../../models/user';
+import { UserAddressesDetail, AddressDetail } from '../models/address';
+import { User } from '../models/user';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AddressService } from '../../services/address/address.service';
-import { UserService } from '../../services/users/user.service';
+import { AddressService } from '../services/address/address.service';
+import { UserService } from '../services/users/user.service';
 
 @Component({
   selector: 'app-user-detail',
@@ -13,7 +13,6 @@ import { UserService } from '../../services/users/user.service';
 
 export class UserDetailComponent implements OnInit {
   userAddresses: UserAddressesDetail;
-  userData: User;
   id: number;
   isBoolean: boolean;
 
@@ -24,6 +23,7 @@ export class UserDetailComponent implements OnInit {
     {
       this.isBoolean = true;
       this.getUserAddresses();
+      
     }
     else {
       this.isBoolean = false;
@@ -32,23 +32,24 @@ export class UserDetailComponent implements OnInit {
   }
 
   getUserAddresses() {
-    this.id = +this.route.snapshot.paramMap.get('id');
+    if(this.route.snapshot.paramMap.get('id') != null)
+      this.id = +this.route.snapshot.paramMap.get('id');
+    else
+      this.id = +localStorage.getItem("userId");
     this.addressService.getUserAddressesOfUserId(this.id).subscribe(
       data => {
-        // console.log(data);
         this.userAddresses = data.pop();
+        
       }
     );
   }
 
   getUserFromId() {
-    const id = +this.route.snapshot.paramMap.get('id');
+    const id = +localStorage.getItem("userId");
     this.userService.getUserFromId(id).subscribe(
       result => {
-        console.log("aad");
-        console.log(result.users[0]);
-        // this.userAddresses = new UserData();
-        this.userData = result.users[0];
+        this.userAddresses = new UserAddressesDetail();
+        this.userAddresses.user = result.users[0];
       }
     );
   }
@@ -94,6 +95,10 @@ export class UserDetailComponent implements OnInit {
       err => console.log("error of subscribe AdeleteAddressFromId(): " + err),
       () => console.log("delete address success!")
     );
+  }
+
+  getEditUser(user: User) {
+    this.userAddresses.user = user;
   }
 
   // getUserDetail() {

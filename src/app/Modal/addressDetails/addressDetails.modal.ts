@@ -1,9 +1,9 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
-import { AddressService } from '../../../services/address/address.service'
-import { Address } from '../../../models/address'
-import { Country } from '../../../models/country'
+import { AddressService } from '../../services/address/address.service'
+import { Address } from '../../models/address'
+import { Country } from '../../models/country'
 import { FormGroup, Validators, FormBuilder } from '@angular/forms'
 import { Action } from 'rxjs/internal/scheduler/Action';
 

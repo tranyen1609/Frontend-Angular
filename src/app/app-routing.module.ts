@@ -9,6 +9,7 @@ import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
 // import { ContactComponent } from './contact/contact.component';
 import { UsersComponent } from './users/users.component';
 import { HomeComponent } from './home/home.component';
+import { AccountInfomationComponent } from './account-infomation/account-infomation.component';
 
 const routes: Routes = [
   //khai báo route mặc định, tức là khi ko chỉ định path cụ thể thì sẽ mở màn hình này đầu tiên
@@ -16,7 +17,11 @@ const routes: Routes = [
   //Khai báo các route
   {path: 'home', component : HomeComponent},
   {path: 'login', component : LoginComponent},
-  {path: 'user', component : UsersComponent},
+  {path: 'users', component : UsersComponent},
+  {
+    path: "account",
+    component: AccountInfomationComponent
+  },
   // {path: 'contact', component : ContactComponent},
   //Truyền vào id để xem chi tiết
   {path: 'detail/:id', component : UserDetailComponent},
