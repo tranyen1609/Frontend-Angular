@@ -26,7 +26,10 @@ import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { UserAddressComponent } from './modal/user-address/user-address.component';
 import { ValidateComponent } from './validate/validate.component';
 import { AccountInfomationComponent } from './account-infomation/account-infomation.component';
-// import { ContactComponent } from './contact/contact.component';
+
+export function jwtTokenGetter() {
+  return localStorage.getItem("token");
+}
 
 @NgModule({
   declarations: [
@@ -49,7 +52,6 @@ import { AccountInfomationComponent } from './account-infomation/account-infomat
 
     AccountInfomationComponent,
 
-    // ContactComponent,
   ],
   imports: [
     BrowserModule,
@@ -63,9 +65,7 @@ import { AccountInfomationComponent } from './account-infomation/account-infomat
 
     JwtModule.forRoot({
       config: {
-        tokenGetter: () => {
-          return localStorage.getItem("token");
-        },
+        tokenGetter: jwtTokenGetter,
         whitelistedDomains: ['localhost:5000', 'ubunsys.net'],
         skipWhenExpired: true
       }    

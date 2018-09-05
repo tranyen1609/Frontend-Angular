@@ -13,8 +13,8 @@ import { Observable, of } from 'rxjs';
   providedIn: 'root'
 })
 export class AddressService {
-  // private apiRoot = 'http://localhost:5000/api/';
-  private apiRoot = 'https://ubunsys.net/one/api/';
+  private apiRoot = 'http://localhost:5000/api/';
+  // private apiRoot = 'https://ubunsys.net/one/api/';
 
   private apiCountries = this.apiRoot + 'countries';
   private apiCitiesOfCountryId = this.apiRoot + 'cities/country';

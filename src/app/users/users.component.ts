@@ -27,7 +27,10 @@ export class UsersComponent implements OnInit {
   
   pageChanged(page) {
     this.p = page;
-    this.getUsers();
+    if(this.searchValue != undefined)
+      this.AgetSearchValue();
+    else
+      this.getUsers();
   }
 
   getUsers(): void {

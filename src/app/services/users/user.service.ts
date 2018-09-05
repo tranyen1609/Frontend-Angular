@@ -12,8 +12,8 @@ import { of } from 'rxjs';
 export class UserService {
 
   userdata: UserData;
-  // private apiRoot = 'http://localhost:5000/api/';
-  private apiRoot = 'https://ubunsys.net/one/api/';
+  private apiRoot = 'http://localhost:5000/api/';
+  // private apiRoot = 'https://ubunsys.net/one/api/';
   private apiUrl = this.apiRoot + 'users';
   private apiLogin = this.apiRoot + 'token';
   

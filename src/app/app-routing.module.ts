@@ -6,7 +6,6 @@ import {RouterModule, Routes} from '@angular/router';
 import { LoginComponent } from './login/login.component';
 import { UserDetailComponent } from './user-detail/user-detail.component';
 import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
-// import { ContactComponent } from './contact/contact.component';
 import { UsersComponent } from './users/users.component';
 import { HomeComponent } from './home/home.component';
 import { AccountInfomationComponent } from './account-infomation/account-infomation.component';
@@ -22,7 +21,6 @@ const routes: Routes = [
     path: "account",
     component: AccountInfomationComponent
   },
-  // {path: 'contact', component : ContactComponent},
   //Truyền vào id để xem chi tiết
   {path: 'detail/:id', component : UserDetailComponent},
   //Khi nhập sai link sẽ tự chuyển vào component này (Dòng này phải được đặt cuối cùng của route)
